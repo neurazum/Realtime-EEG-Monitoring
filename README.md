@@ -1,6 +1,6 @@
-# Gerçek Zamanlı EEG Verisi Takibi
+# Gerçek Zamanlı EEG Verisi Takibi | Realtime EEG Monitoring
 
-### Neurazum olarak geçtiğimiz birkaç gün içerisinde kendi yaptığımız EEG cihazını ve veri takibini tanıtmıştık. Şimdi ise veri takibi uygulamasını şimdilik yapay zeka modelsiz halini açık kaynak olarak paylaşıyoruz.
+### Neurazum olarak, geçtiğimiz birkaç gün içerisinde kendi yaptığımız EEG cihazını ve veri takibini tanıtmıştık. Şimdi ise veri takibi uygulamasını şimdilik yapay zeka modelsiz halini açık kaynak olarak paylaşıyoruz.
 ### **NOT**: Bilgisayara ses girişi ile bağlantı sağladığınızda giren frekansı ölçmektedir.
 
 # ----------------------------------------------------------
