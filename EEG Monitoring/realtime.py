@@ -13,7 +13,7 @@ from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as Navigatio
 CHUNK = 1000  # Veri bloğu boyutu
 FORMAT = pyaudio.paInt16  # Veri formatı (16-bit PCM)
 CHANNELS = 1  # Tek kanallı (mono)
-RATE = 50000  # Örnekleme hızı (Hz)
+RATE = 2000  # Örnekleme hızı (Hz)
 
 p = pyaudio.PyAudio()
 
@@ -32,7 +32,7 @@ class MainWindow(QMainWindow):
 
         self.timer = QTimer()
         self.timer.timeout.connect(self.update_plot)
-        self.timer.start(1)  # Grafiği güncelleme süresi (ms)
+        self.timer.start(10)  # Grafiği güncelleme süresi (ms)
 
     def initUI(self):
         self.setWindowTitle('EEG Monitoring by Neurazum')
@@ -68,9 +68,10 @@ class MainWindow(QMainWindow):
         data = np.frombuffer(stream.read(CHUNK), dtype=np.int16)
         data = np.abs(data)
         voltage_data = data * (3.3 / 1024)  # Voltajı "mV" cinsine dönüştürme
+        frequency = voltage_data / (RATE* 1000) # Frekans hesaplama
 
         self.line1.set_ydata(data)
-        self.line2.set_ydata(voltage_data)
+        self.line2.set_ydata(frequency)
 
         for coll in self.ax1.collections:
             coll.remove()
@@ -82,9 +83,9 @@ class MainWindow(QMainWindow):
         self.ax1.fill_between(self.x, data, where=((self.x >= 30) & (self.x <= 100)), color='purple', alpha=1)
 
         self.ax1.legend(handles=self.legend_elements, loc='upper right')
-        self.ax1.set_ylabel('Şiddet (dB)')
+        self.ax1.set_ylabel('Genlik (uV)')
         self.ax1.set_xlabel('Frekans (Hz)')
-        self.ax1.set_title('Gerçek Zamanlı Frekans ve mV Değerleri')
+        self.ax1.set_title('Gerçek Zamanlı Frekans ve Genlik Değerleri')
 
         self.ax2.set_ylabel('Voltaj (mV)')
         self.ax2.set_xlabel('Zaman')
